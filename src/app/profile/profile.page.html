@@ -1,0 +1,65 @@
+<ion-header>
+  
+  <ion-toolbar color="dark">
+    <ion-chip>
+      <ion-avatar [routerLink]="['/users']">
+        <img src="assets\gitImages\avatar.jpg">
+      </ion-avatar>
+      <ion-label [routerLink]="['/users']" color="success">Chip Avatar</ion-label>
+      <ion-searchbar placeholder="Bạn muốn nghe gì nè. "></ion-searchbar>
+    </ion-chip>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    
+    <ion-item *ngFor="let track of playlist" (click)="start(track)">
+      <ion-thumbnail slot="start">
+        <img width="55%" src="assets\gitImages\thumbnail.png">
+      </ion-thumbnail>
+      <ion-label [color]="track == activeTrack ? 'success' : 'light'">{{ track.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+  
+  </ion-content>
+  
+  
+  
+  <ion-footer> 
+      <div *ngIf="activeTrack">
+      <ion-toolbar color="dark">
+        
+        <ion-row class="ion-text-center">
+          <ion-col size="12" class="ion-text-center">
+            {{ activeTrack.name }}
+          </ion-col>
+          <ion-col size="12">
+            <ion-range #range [(ngModel)]="progress" max="100" color="success" (touchend)="seek()" (mouseup)="seek()"></ion-range>
+          </ion-col>
+          <ion-col size="12">
+    
+            <ion-button fill="clear" (click)="prev()" color="light">
+              <ion-icon class="media" slot="icon-only" name="skip-backward"></ion-icon>
+            </ion-button>
+    
+            <ion-button fill="clear" (click)="togglePlayer(false)" *ngIf="!isPlaying" color="light">
+              <ion-icon class="media" slot="icon-only" name="play"></ion-icon>
+            </ion-button>
+    
+            <ion-button fill="clear" (click)="togglePlayer(true)" *ngIf="isPlaying" color="light">
+              <ion-icon class="media" slot="icon-only" name="pause"></ion-icon>
+            </ion-button>
+    
+            <ion-button fill="clear" (click)="next()" color="light">
+              <ion-icon class="media" slot="icon-only" name="skip-forward"></ion-icon>
+            </ion-button>
+    
+          </ion-col>
+        </ion-row>
+  
+      </ion-toolbar>
+      </div>
+      
+  </ion-footer>
+  
